@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SB Medical Transport</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f8f8f8; color: #333; }
+    header { background: #2e7d32; color: white; padding: 1.5em; text-align: center; }
+    nav { background: #1b5e20; padding: 1em; text-align: center; }
+    nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
+    section { max-width: 960px; margin: auto; padding: 2em; background: white; margin-top: 1em; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    h2 { color: #2e7d32; }
+    ul { line-height: 1.8; }
+    footer { text-align: center; padding: 1em; background: #e0e0e0; margin-top: 2em; }
+    .btn { display: inline-block; margin-top: 1em; padding: 0.8em 1.5em; background-color: #2e7d32; color: white; text-decoration: none; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>SB Medical Transport</h1>
+    <p>Non-Emergency Medical Transportation | San Diego, CA</p>
+  </header>
+  <nav>
+    <a href="#services">Services</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#booking">Book Now</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <section id="services">
+    <h2>Our Services</h2>
+    <ul>
+      <li>Ambulatory Transportation</li>
+      <li>Wheelchair Accessible Vehicles</li>
+      <li>Dialysis & Doctor Appointments</li>
+      <li>Door-to-Door & Companion Service</li>
+      <li>Long Distance Medical Trips</li>
+    </ul>
+  </section>
+
+  <section id="pricing">
+    <h2>Pricing</h2>
+    <ul>
+      <li>Ambulatory: $38 base + $2.45 per mile</li>
+      <li>Wheelchair: $68 base + $3.50 per mile</li>
+      <li>Wait Time: $13 per hour</li>
+    </ul>
+  </section>
+
+  <section id="booking">
+    <h2>Book a Ride</h2>
+    <form id="bookingForm">
+      <input type="text" name="name" placeholder="Full Name" required style="width:100%; padding:10px; margin:5px 0;">
+      <input type="tel" name="phone" placeholder="Phone Number" required style="width:100%; padding:10px; margin:5px 0;">
+      <input type="email" name="email" placeholder="Email Address" style="width:100%; padding:10px; margin:5px 0;">
+      <input type="date" name="date" required style="width:100%; padding:10px; margin:5px 0;">
+      <input type="time" name="time" required style="width:100%; padding:10px; margin:5px 0;">
+      <select name="service" style="width:100%; padding:10px; margin:5px 0;">
+        <option value="ambulatory">Ambulatory</option>
+        <option value="wheelchair">Wheelchair</option>
+      </select>
+      <button type="submit" class="btn">Submit</button>
+    </form>
+    <p id="successMsg" style="display:none; color: green;">Thank you! Your booking was submitted.</p>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p>📞 (619) 347-3243</p>
+    <p>📧 sbmedicalrides@gmail.com</p>
+    <p>⏰ 24/7 | Serving San Diego County</p>
+  </section>
+
+  <footer>
+    &copy; 2025 SB Medical Transport. All rights reserved.
+  </footer>
+
+  <script>
+    document.getElementById('bookingForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData.entries());
+
+      fetch('https://your-backend-url.onrender.com/api/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      .then(res => res.text())
+      .then(msg => {
+        document.getElementById('successMsg').style.display = 'block';
+        this.reset();
+      })
+      .catch(err => console.error('Booking failed:', err));
+    });
+  </script>
+</body>
+</html>
